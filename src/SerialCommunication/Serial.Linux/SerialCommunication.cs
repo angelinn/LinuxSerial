@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Serial.Linux
 {
-    public class Serial : IDisposable
+    public class SerialCommunication : IDisposable
     {
         public event EventHandler<string> OnDataReceived;
         private int hSerial;
@@ -18,10 +18,10 @@ namespace Serial.Linux
         private IntPtr size;
         private IntPtr response;
         private IntPtr responseSize;
-
+        
         private ILibc libc;
 
-        public Serial(ILibc libc = null)
+        public SerialCommunication(ILibc libc = null)
         {
             this.libc = libc ?? new Libc();
         }
