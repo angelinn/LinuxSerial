@@ -22,7 +22,7 @@ namespace Serial.Tests
         public void RunsWithExistingSerial()
         {
             Mock<ILibc> mock = new Mock<ILibc>();
-            mock.Setup(o => o.Open(String.Empty, Libc.OpenFlags.O_RDWR)).Returns(1);
+            mock.Setup(o => o.Open("dummy", Libc.OpenFlags.O_NOCTTY | Libc.OpenFlags.O_RDWR | Libc.OpenFlags.O_SYNC)).Returns(1);
 
             SerialCommunication serial = new SerialCommunication(mock.Object);
             Assert.DoesNotThrow(() => serial.Open("dummy"));
@@ -32,7 +32,7 @@ namespace Serial.Tests
         public void ThrowsExceptionOnNonExistingSerial()
         {
             Mock<ILibc> mock = new Mock<ILibc>();
-            mock.Setup(o => o.Open(String.Empty, Libc.OpenFlags.O_RDWR)).Returns(-1);
+            mock.Setup(o => o.Open("dummy", Libc.OpenFlags.O_NOCTTY | Libc.OpenFlags.O_RDWR | Libc.OpenFlags.O_SYNC)).Returns(-1);
 
             SerialCommunication serial = new SerialCommunication(mock.Object);
             Assert.Throws<SerialNotFoundException>(() => serial.Open("dummy"));
