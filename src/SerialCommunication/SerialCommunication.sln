@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serial.Linux", "Serial.Linux\Serial.Linux.csproj", "{FC145683-6E98-47BB-B945-7ED2DDB1F0BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serial.Linux", "Serial.Linux\Serial.Linux.csproj", "{FC145683-6E98-47BB-B945-7ED2DDB1F0BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serial.Tests", "Serial.Tests\Serial.Tests.csproj", "{AEF7DD02-4A91-41D2-B22B-25530C5B98FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FC145683-6E98-47BB-B945-7ED2DDB1F0BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC145683-6E98-47BB-B945-7ED2DDB1F0BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC145683-6E98-47BB-B945-7ED2DDB1F0BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEF7DD02-4A91-41D2-B22B-25530C5B98FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEF7DD02-4A91-41D2-B22B-25530C5B98FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEF7DD02-4A91-41D2-B22B-25530C5B98FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEF7DD02-4A91-41D2-B22B-25530C5B98FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
