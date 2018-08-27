@@ -1,4 +1,5 @@
-﻿using Serial.Linux.Native;
+﻿using Serial.Linux.Exceptions;
+using Serial.Linux.Native;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -29,6 +30,8 @@ namespace Serial.Linux
         public void Open(string name)
         {
             hSerial = libc.Open(name, Libc.OpenFlags.O_NOCTTY | Libc.OpenFlags.O_RDWR | Libc.OpenFlags.O_SYNC);
+            if (hSerial == -1)
+                throw new SerialNotFoundException(name);
 
             buffer = Marshal.AllocHGlobal(64);
             size = new IntPtr(64);
