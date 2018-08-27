@@ -19,9 +19,16 @@ namespace Serial.Linux
         private IntPtr response;
         private IntPtr responseSize;
 
-        public Serial(string name)
+        private ILibc libc;
+
+        public Serial(ILibc libc = null)
         {
-            hSerial = Libc.open(name, Libc.OpenFlags.O_NOCTTY | Libc.OpenFlags.O_RDWR | Libc.OpenFlags.O_SYNC);
+            this.libc = libc ?? new Libc();
+        }
+
+        public void Open(string name)
+        {
+            hSerial = libc.Open(name, Libc.OpenFlags.O_NOCTTY | Libc.OpenFlags.O_RDWR | Libc.OpenFlags.O_SYNC);
 
             buffer = Marshal.AllocHGlobal(64);
             size = new IntPtr(64);
@@ -34,14 +41,14 @@ namespace Serial.Linux
             IntPtr message = Marshal.AllocHGlobal(text.Length);
             IntPtr messageSize = new IntPtr(text.Length);
 
-            Libc.write(hSerial, message, messageSize);
+            libc.Write(hSerial, message, messageSize);
 
             Marshal.FreeHGlobal(messageSize);
         }
 
         public void Write(IntPtr message, IntPtr size)
         {
-            Libc.write(hSerial, message, size);
+            libc.Write(hSerial, message, size);
         }
 
         public void Read()
@@ -50,11 +57,11 @@ namespace Serial.Linux
             
             while (isReading)
             {
-                IntPtr res = Libc.read(hSerial, buffer, size);
+                IntPtr res = libc.Read(hSerial, buffer, size);
                 string read = Marshal.PtrToStringAnsi(buffer);
                 OnDataReceived?.Invoke(this, read);
 
-                Libc.write(hSerial, response, responseSize);
+                libc.Write(hSerial, response, responseSize);
 
                 Task.Delay(500).Wait();
             }
