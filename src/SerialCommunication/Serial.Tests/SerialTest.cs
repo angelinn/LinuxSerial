@@ -51,19 +51,11 @@ namespace Serial.Tests
                 .Returns(new IntPtr(1))
                 .Callback<int, IntPtr, IntPtr>((i, p, c) => Marshal.Copy(bytes, 0, p, bytes.Length));
 
-            string received = String.Empty;
             
             SerialCommunication serial = new SerialCommunication(mock.Object);
             serial.Open("dummy");
-            serial.OnDataReceived += (s, e) => received = e;
-
-            Task.Run(async () =>
-            {
-                await Task.Delay(1000);
-                serial.StopReading();
-            });
             
-            serial.Read();
+            string received = serial.ReadOnce();
             Assert.AreEqual(targetString, received);
         }
     }

@@ -54,7 +54,15 @@ namespace Serial.Linux
             libc.Write(hSerial, message, size);
         }
 
-        public void Read()
+        public string ReadOnce()
+        {
+            IntPtr res = libc.Read(hSerial, buffer, size);
+            string read = Marshal.PtrToStringAnsi(buffer);
+
+            return read;
+        }
+
+        public void StartReading()
         {
             isReading = true;
             
@@ -71,9 +79,9 @@ namespace Serial.Linux
 
         }
 
-        public async Task ReadAsync()
+        public async Task StartReadingAsync()
         {
-            await Task.Run(() => Read()).ConfigureAwait(false);
+            await Task.Run(() => ReadOnce()).ConfigureAwait(false);
         }
 
         public void StopReading()
